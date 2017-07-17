@@ -37,7 +37,7 @@ prepare() {
 
 build() {
 	cd "$srcdir"/nginx-$_nginxver
-	./configure $(nginx -V 2>&1 | grep 'configure arguments' | sed -r 's@^[^:]+: @@') --add-dynamic-module=../$_modname-$_modver
+	./configure "$(nginx -V 2>&1 | grep 'configure arguments' | sed -r 's@^[^:]+: @@')" --add-dynamic-module=../$_modname-$_modver
 	make modules
 }
 
