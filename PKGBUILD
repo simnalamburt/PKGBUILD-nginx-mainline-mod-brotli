@@ -19,9 +19,9 @@ url="https://github.com/google/ngx_brotli"
 license=('CUSTOM')
 
 source=(
-	https://nginx.org/download/nginx-$_nginxver.tar.gz
-	https://github.com/google/$_modname/archive/$_modver/$_modname-$_modver.tar.gz
-	https://github.com/google/brotli/archive/$_brotliver/brotli-$_brotliver.tar.gz
+  https://nginx.org/download/nginx-$_nginxver.tar.gz
+  https://github.com/google/$_modname/archive/$_modver/$_modname-$_modver.tar.gz
+  https://github.com/google/brotli/archive/$_brotliver/brotli-$_brotliver.tar.gz
 )
 
 sha256sums=('d77f234d14989d273a363f570e1d892395c006fef2ec04789be90f41a1919b70'
@@ -29,24 +29,24 @@ sha256sums=('d77f234d14989d273a363f570e1d892395c006fef2ec04789be90f41a1919b70'
             '4299a2a86f0b931e80dd548be17fcaa5a6c158a0727f497f22cbb365668af0fe')
 
 prepare() {
-	cd "$srcdir"/$_modname-$_modver/deps
-	rm -rf brotli
-	ln -s ../../brotli-$_brotliver brotli
-	export NGX_BROTLI_STATIC_MODULE_ONLY=1
+  cd "$srcdir"/$_modname-$_modver/deps
+  rm -rf brotli
+  ln -s ../../brotli-$_brotliver brotli
+  export NGX_BROTLI_STATIC_MODULE_ONLY=1
 }
 
 build() {
-	cd "$srcdir"/nginx-$_nginxver
-	./configure "$(nginx -V 2>&1 | grep 'configure arguments' | sed -r 's@^[^:]+: @@')" --add-dynamic-module=../$_modname-$_modver
-	make modules
+  cd "$srcdir"/nginx-$_nginxver
+  ./configure "$(nginx -V 2>&1 | grep 'configure arguments' | sed -r 's@^[^:]+: @@')" --add-dynamic-module=../$_modname-$_modver
+  make modules
 }
 
 package() {
-	install -Dm644 "$srcdir"/$_modname-$_modver/LICENSE \
-	               "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 "$srcdir"/$_modname-$_modver/LICENSE \
+                 "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
-	cd "$srcdir"/nginx-$_nginxver/objs
-	for mod in ngx_*.so; do
-		install -Dm755 $mod "$pkgdir"/usr/lib/nginx/modules/$mod
-	done
+  cd "$srcdir"/nginx-$_nginxver/objs
+  for mod in ngx_*.so; do
+    install -Dm755 $mod "$pkgdir"/usr/lib/nginx/modules/$mod
+  done
 }
