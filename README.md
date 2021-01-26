@@ -1,3 +1,11 @@
+> Migrated to [simnalamburt/PKGBUILD](https://github.com/simnalamburt/PKGBUILD/tree/main/nginx-mainline-mod-brotli)
+> ========
+> This repo has been migrated to the https://github.com/simnalamburt/PKGBUILD/tree/main/nginx-mainline-mod-brotli
+
+&nbsp;
+
+&nbsp;
+
 nginx-mainline-mod-brotli 1.13.2-1
 --------
 
